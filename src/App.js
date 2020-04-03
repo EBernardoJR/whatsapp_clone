@@ -20,7 +20,7 @@ import reducers from './reducers'
 const App =  () => {
   return (
     <Provider store={createStore(reducers)}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor="#fff"/>
       <Routes />
     </Provider>
   );
