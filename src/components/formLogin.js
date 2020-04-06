@@ -22,8 +22,8 @@ const FormLogin =  props => {
                 <Text style={{ fontSize: 25, color: '#ddd'}}>Whatsapp Clone</Text>
             </View>
             <View style={styles.form}>
-                <TextInput value={email} placeholder='Email' onChangeText={text => props.changeEmail(text)} style={{ fontSize: 20, height: 45 }}/>
-                <TextInput value={password} /*esconder a senha*/secureTextEntry placeholder='Senha' type='password' onChangeText={text => props.changePassword(text)} style={{ fontSize: 20, height: 45 }}/>
+                <TextInput value={email} placeholder='Email' placeholderTextColor='#fff' onChangeText={text => props.changeEmail(text)} style={{ fontSize: 20, height: 45, color: '#fff' }}/>
+                <TextInput value={password} placeholderTextColor='#fff' /*esconder a senha*/secureTextEntry placeholder='Senha' type='password' onChangeText={text => props.changePassword(text)} style={{ fontSize: 20, height: 45, color: '#fff' }}/>
 
             <TouchableOpacity onPress={navigateToRegister}><Text style={{ fontSize: 20, color: '#ddd' }}>Ainda não tem cadastro? cadastre-se agora</Text></TouchableOpacity>
             </View> 

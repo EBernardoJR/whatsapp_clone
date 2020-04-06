@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { View, ImageBackground, TextInput, Button } from 'react-native';
+import { View, ImageBackground, TextInput, Button, Text } from 'react-native';
 //actions
-import { changeEmail, changePassword, changeName } from '../actions/authAction'
+import { changeEmail, changePassword, changeName, registerUser } from '../actions/authAction'
 import backgroundImg from '../assets/background.png'
-// import { Container } from './styles';
+
+
 
 const  FormCadastro = props => {
+
+    function handleRegisterUser(){
+
+        const { name, email, password } = props
+
+        props.registerUser({ name, email, password })
+    }
+
 
     //ns props, vai ta todo o estado do redux (reducer authReducer)
     return (
@@ -15,13 +24,16 @@ const  FormCadastro = props => {
 
 
             <View style={{ flex: 4, justifyContent: 'center', }}>
-                <TextInput placeholder='Nome'  value={props.name} onChangeText={text => props.changeName(text)} style={{ fontSize: 20, height: 45, borderBottomColor: '#7B7777', borderBottomWidth: 2, width: '90%' }}/> 
-                <TextInput placeholder='Email' value={props.email} onChangeText={text => props.changeEmail(text)} style={{ fontSize: 20, height: 45, borderBottomColor: '#7B7777', borderBottomWidth: 2, width: '90%' }}/>
-                <TextInput placeholder='Senha' secureTextEntry value={props.password} onChangeText={text => props.changePassword(text)} style={{ fontSize: 20, height: 45, borderBottomColor: '#7B7777', borderBottomWidth: 2, width: '90%' }}/>
+                <TextInput placeholder='Nome' placeholderTextColor='#fff' value={props.name} onChangeText={text => props.changeName(text)} style={{ fontSize: 20, height: 45, borderBottomColor: '#7B7777', borderBottomWidth: 2, width: '90%', color: '#fff' }}/> 
+                <TextInput placeholder='Email' placeholderTextColor='#fff' value={props.email} onChangeText={text => props.changeEmail(text)} style={{ fontSize: 20, height: 45, borderBottomColor: '#7B7777', borderBottomWidth: 2, width: '90%', color: '#fff' }}/>
+                <TextInput placeholder='Senha' placeholderTextColor='#fff' secureTextEntry value={props.password} onChangeText={text => props.changePassword(text)} style={{ fontSize: 20, height: 45, borderBottomColor: '#7B7777', borderBottomWidth: 2, width: '90%', color: '#fff' }}/>
+                <Text style={{ color: '#ff0000', fontSize: 18 }}>{props.erro}</Text>
             </View>
 
             <View style={{ flex: 1 }}>
-                <Button title='Cadastrar' color="#115e54" onPress={()=> false} />
+                <Button title='Cadastrar' 
+                color="#115e54" 
+                onPress={() => handleRegisterUser()} />
             </View>
         </View>
     </ImageBackground>
@@ -32,7 +44,8 @@ const mapStateToProps = state => (
     {
         name: state.authReducer.name,
         email: state.authReducer.email,
-        password: state.authReducer.password
+        password: state.authReducer.password,
+        erro: state.authReducer.registerError
     }
 )
 
@@ -40,5 +53,6 @@ export default connect(mapStateToProps, {
     //action
     changeEmail,
     changePassword, //vão ser encaminhadas as props
-    changeName
+    changeName,
+    registerUser
 })(FormCadastro)

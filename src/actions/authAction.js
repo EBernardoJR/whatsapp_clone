@@ -1,3 +1,6 @@
+import firebase from 'firebase'
+import { ThunkDispatch } from 'redux-thunk'
+
 //mudar estado do redux 
 //action creator
 export const changeEmail = text => {
@@ -22,3 +25,31 @@ export const changeName = text => {
         payload: text
     }
 }
+
+export const registerUser = ({ name, email, password }) => {
+
+    return dispatch => {
+        //quando for executado a action vai ser devolvida a store
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(user => registerSucess(dispatch))//retornar a action com base no then e catch
+            .catch(erro => registerError(erro, dispatch))
+    }
+    
+}
+//criando o usuário
+
+//redux thunk (adicionado ao app.js) transforma uma função assicrona (não espera as funções q estão dentro dela retornarem) para sicrona
+
+const registerSucess = dispatch => {
+    dispatch({
+        type: 'sucess'//action de suceso
+    })
+}
+
+const registerError = (erro, dispatch)=> {
+
+    dispatch({
+        type: 'register_error',
+        payload: erro.message
+    })
+} 
