@@ -1,35 +1,48 @@
 //estado da autenticação
+//importando todos os types das actions
+import { CHANGE_EMAIL, 
+    CHANGE_NAME, 
+    CHANGE_PASSWORD, 
+    LOGIN_ERROR, 
+    LOGIN_SUCESS, 
+    REGISTER_ERROR, 
+    REGISTER_SUCESS} from '../actions/type'
+
+
 
 const INITIAL_STATE = {
     name: '',
     email: '',
     password: '',
-    registerError: ''
+    registerError: '',
+    erroLogin: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
-    //action do email (changeEmail)
-    if(action.type === 'change_email'){
-        //evoluir o estado (inclementando o email passado)
-        return { ...state, email: action.payload }//pega todo estado inicial e so muda o campo email
-    }
-    //action da senha (changePassword)
-    if(action.type === 'change_password'){
-        return { ...state, password: action.payload }
-    }
-    //action do nome (changeName)
-    if(action.type === 'change_name'){
-        return { ...state, name: action.payload }
-    }
+    console.log(action.type)
 
-    //action dos erros 
-    if(action.type === 'register_error'){
-        return { ...state, registerError: action.payload }
-    }
-    //action ao fazer o cadastro
-    if(action.type === 'sucess'){
-        return { ...state, name: '', password: '' }
-    }
+    switch(action.type){
+        case CHANGE_EMAIL://action do email (changeEmail)
+            //evoluir o estado (inclementando o email passado)
+            return { ...state, email: action.payload }//pega todo estado inicial e so muda o campo email
+    
+        case CHANGE_PASSWORD:
+            return { ...state, password: action.payload }
+        
+        case CHANGE_NAME:
+            return { ...state, name: action.payload }
+        
+        case REGISTER_ERROR:
+            return { ...state, registerError: action.payload }
 
-    return state;
+        case REGISTER_SUCESS:
+            return { ...state, name: '', password: '', email: '', erroLogin: '' }
+        case LOGIN_ERROR:
+            return { ...state, erroLogin: action.payload}
+
+        default:
+            return state;
+
+    }
+    
 }

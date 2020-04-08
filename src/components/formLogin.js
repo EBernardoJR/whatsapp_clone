@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
-import { changeEmail, changePassword } from '../actions/authAction'
+import { changeEmail, changePassword, authenticateUser } from '../actions/authAction'
 // import { Container } from './styles';
 import backgroundImg from '../assets/background.png'
 
@@ -15,6 +15,13 @@ const FormLogin =  props => {
     function navigateToRegister(){
         Actions.register()
     }
+
+    //autenticação
+    function login(){
+        props.authenticateUser({ email, password })
+    }
+
+
     return (
     <ImageBackground source={backgroundImg} style={{ width: '100%', height: '100%' }}>
         <View style={{ flex: 1, padding: 10 }}>
@@ -22,13 +29,36 @@ const FormLogin =  props => {
                 <Text style={{ fontSize: 25, color: '#ddd'}}>Whatsapp Clone</Text>
             </View>
             <View style={styles.form}>
-                <TextInput value={email} placeholder='Email' placeholderTextColor='#fff' onChangeText={text => props.changeEmail(text)} style={{ fontSize: 20, height: 45, color: '#fff' }}/>
-                <TextInput value={password} placeholderTextColor='#fff' /*esconder a senha*/secureTextEntry placeholder='Senha' type='password' onChangeText={text => props.changePassword(text)} style={{ fontSize: 20, height: 45, color: '#fff' }}/>
+                <TextInput value={email} 
+                placeholder='Email' 
+                placeholderTextColor='#fff' 
+                onChangeText={text => props.changeEmail(text)} 
+                style={{ fontSize: 20, height: 45, color: '#fff' }}/>
 
-            <TouchableOpacity onPress={navigateToRegister}><Text style={{ fontSize: 20, color: '#ddd' }}>Ainda não tem cadastro? cadastre-se agora</Text></TouchableOpacity>
+
+
+                <TextInput 
+                value={password} 
+                placeholderTextColor='#fff' 
+                /*esconder a senha*/
+                secureTextEntry 
+                placeholder='Senha' 
+                type='password' 
+                onChangeText={text => props.changePassword(text)} 
+                style={{ fontSize: 20, height: 45, color: '#fff' }}/>
+
+                <Text style={{ color: '#ff0000', fontSize: 18}}>{props.erroLogin}</Text>
+
+            <TouchableOpacity onPress={navigateToRegister}>
+                <Text style={{ fontSize: 20, color: '#ddd' }}>Ainda não tem cadastro? cadastre-se agora</Text>
+            </TouchableOpacity>
+
+
             </View> 
+
+
             <View style={styles.footer}>
-                <Button onPress={() => false} title='Entrar' color="#115E54"/>
+                <Button onPress={() => login()} title='Entrar' color="#115E54"/>
             </View>
             
         </View>
@@ -59,12 +89,14 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => (
     {//recuperando estados
         email: state.authReducer.email,
-        password: state.authReducer.password //vai conectar ao reducer authReducer
+        password: state.authReducer.password, //vai conectar ao reducer authReducer
+        erroLogin: state.authReducer.erroLogin
     }
 )
 
 export default connect(mapStateToProps,{
-    //action
+    //declarar as actions
     changeEmail, 
-    changePassword
+    changePassword,
+    authenticateUser
 })(FormLogin)
