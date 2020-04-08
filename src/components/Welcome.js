@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from '../assets/logo.png'
 import backgroundImg from '../assets/background.png'
 import { View, Text, Button, Image, ImageBackground } from 'react-native';
-
+import { Actions } from 'react-native-router-flux'
 // import { Container } from './styles';
 
 export default function Welcome(){
@@ -15,7 +15,7 @@ export default function Welcome(){
                 <Image source={logo} />
             </View>
             <View style={{ flex: 1 }}>
-                <Button title='Fazer login' onPress={()=> false} />
+                <Button title='Fazer login' onPress={() => Actions.login()} />
             </View>
         </View>
         </ImageBackground>

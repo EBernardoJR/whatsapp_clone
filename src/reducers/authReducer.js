@@ -26,6 +26,10 @@ export default (state = INITIAL_STATE, action) => {
     if(action.type === 'register_error'){
         return { ...state, registerError: action.payload }
     }
+    //action ao fazer o cadastro
+    if(action.type === 'sucess'){
+        return { ...state, name: '', password: '' }
+    }
 
     return state;
 }

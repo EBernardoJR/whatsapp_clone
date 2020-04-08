@@ -41,7 +41,7 @@ const  FormCadastro = props => {
   }
 
 const mapStateToProps = state => (
-    {
+    {   //buscando os campos no redux
         name: state.authReducer.name,
         email: state.authReducer.email,
         password: state.authReducer.password,
@@ -49,10 +49,12 @@ const mapStateToProps = state => (
     }
 )
 
-export default connect(mapStateToProps, {
-    //action
+const actions = {
+    //actions
     changeEmail,
-    changePassword, //vão ser encaminhadas as props
+    changePassword, //vão ser encaminhadas para as props
     changeName,
     registerUser
-})(FormCadastro)
+}
+
+export default connect(mapStateToProps, actions)(FormCadastro)

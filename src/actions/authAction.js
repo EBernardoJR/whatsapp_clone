@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 import { ThunkDispatch } from 'redux-thunk'
+import { Actions } from 'react-native-router-flux'
 
 //mudar estado do redux 
 //action creator
@@ -44,6 +45,9 @@ const registerSucess = dispatch => {
     dispatch({
         type: 'sucess'//action de suceso
     })
+
+    //navegando para tela de boas vindas
+    Actions.welcome()
 }
 
 const registerError = (erro, dispatch)=> {
