@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { View, ImageBackground, TextInput, Button, Text } from 'react-native';
+import { View, ActivityIndicator ,ImageBackground, TextInput, Button, Text } from 'react-native';
 //actions
 import { changeEmail, changePassword, changeName, registerUser } from '../actions/authAction'
 import backgroundImg from '../assets/background.png'
@@ -16,7 +16,20 @@ const  FormCadastro = props => {
         props.registerUser({ name, email, password })
     }
 
-
+    //renderizar o botão
+    function renderButtonRegister(){
+        if(props.loadingRegister){
+            return(
+                <ActivityIndicator size='large' color="#fff"/>
+            )
+        } else{
+            return(
+            <Button title='Cadastrar' 
+            color="#115e54" 
+            onPress={() => handleRegisterUser()} />
+            )
+        }
+    }
     //ns props, vai ta todo o estado do redux (reducer authReducer)
     return (
     <ImageBackground source={backgroundImg} style={{ width: '100%', height: '100%' }}>
@@ -31,9 +44,7 @@ const  FormCadastro = props => {
             </View>
 
             <View style={{ flex: 1 }}>
-                <Button title='Cadastrar' 
-                color="#115e54" 
-                onPress={() => handleRegisterUser()} />
+               {renderButtonRegister()}
             </View>
         </View>
     </ImageBackground>
@@ -45,7 +56,9 @@ const mapStateToProps = state => (
         name: state.authReducer.name,
         email: state.authReducer.email,
         password: state.authReducer.password,
-        erro: state.authReducer.registerError
+        erro: state.authReducer.registerError,
+        //renderizar botão de cadastro
+        loadingRegister: state.authReducer.loadingRegister
     }
 )
 

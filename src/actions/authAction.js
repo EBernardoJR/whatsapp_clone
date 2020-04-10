@@ -3,7 +3,7 @@ import { Actions } from 'react-native-router-flux'
 //criptografia
 import b64 from 'base-64'
 //importando todos os types das actions
-import { CHANGE_EMAIL, CHANGE_NAME, CHANGE_PASSWORD, LOGIN_ERROR, LOGIN_SUCESS, REGISTER_ERROR, REGISTER_SUCESS} from './type'
+import { CHANGE_EMAIL, LOADING_LOGIN, CHANGE_NAME, CHANGE_PASSWORD, LOGIN_ERROR, LOGIN_SUCESS, REGISTER_ERROR, REGISTER_SUCESS, LOADING_REGISTER } from './type'
 
 
 //mudar estado do redux 
@@ -36,6 +36,10 @@ export const authenticateUser = ({ email, password }) => {
     //sigin -- vai verificar se os dados existem
     console.log(email)
     return dispatch => {
+
+    //loadingLogin
+    dispatch({ type: LOADING_LOGIN })
+
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then(value => loginSucess(dispatch))
         .catch(err => loginError(err, dispatch))
@@ -68,6 +72,11 @@ function loginError(erro, dispatch){
 export const registerUser = ({ name, email, password }) => {
 
     return dispatch => {
+
+        //renderizar o botão de cadsatro
+        dispatch({ type: LOADING_REGISTER })
+
+
         //quando for executado a action vai ser devolvida a store
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(user => {

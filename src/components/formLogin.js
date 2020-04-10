@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, ActivityIndicator, Text, TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { changeEmail, changePassword, authenticateUser } from '../actions/authAction'
 // import { Container } from './styles';
 import backgroundImg from '../assets/background.png'
@@ -21,6 +21,21 @@ const FormLogin =  props => {
         props.authenticateUser({ email, password })
     }
 
+    function renderButton(){
+        //vai ocultar o botão enquanto a autenticação não for finalizada
+        //loading login comeca como falso por padrao
+        if(props.loadingLogin){
+            //enquanto estiver carregando vai mostar o gif
+            return (
+                <ActivityIndicator size='large' color="#fff"/>
+            )
+        }else {
+
+            return (
+                <Button onPress={() => login()} title='Entrar' color="#115E54"/>
+            )
+        }
+    }
 
     return (
     <ImageBackground source={backgroundImg} style={{ width: '100%', height: '100%' }}>
@@ -58,7 +73,7 @@ const FormLogin =  props => {
 
 
             <View style={styles.footer}>
-                <Button onPress={() => login()} title='Entrar' color="#115E54"/>
+                {renderButton()}
             </View>
             
         </View>
@@ -90,7 +105,9 @@ const mapStateToProps = state => (
     {//recuperando estados
         email: state.authReducer.email,
         password: state.authReducer.password, //vai conectar ao reducer authReducer
-        erroLogin: state.authReducer.erroLogin
+        erroLogin: state.authReducer.erroLogin,
+        //activityIndicator
+        loadingLogin: state.authReducer.loadingLogin
     }
 )
 
