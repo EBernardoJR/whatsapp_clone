@@ -2,6 +2,7 @@ import React from 'react'
 import { View, TextInput, Button } from 'react-native'
 //mapeamento do redux
 import { connect } from 'react-redux'
+import { changeAddContactEmail, addContact } from '../actions/appActions'
 
 
 const AddContact = props => {
@@ -12,14 +13,14 @@ const AddContact = props => {
                 <TextInput
                 placeholder="E-mail"
                 style={{ fontSize: 20, height: 45 }}
-                onChange={()=> false}
+                onChangeText={text => props.changeAddContactEmail(text)}
                 value={props.addAddressEmail}
                 />
 
            </View>
            <View style={{ flex: 1 }}>
                <Button 
-               onPress={()=> false}
+               onPress={()=> props.addContact(props.addAddressEmail)}
                title="Adicionar"
                color='#115e54'
                />
@@ -35,7 +36,8 @@ const mapStateToProps = state => (
     }
 )
 const actions = {
-
+    changeAddContactEmail,
+    addContact
 }
 
-export default connect(mapStateToProps, null)(AddContact)
+export default connect(mapStateToProps, actions)(AddContact)

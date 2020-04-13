@@ -7,3 +7,7 @@ export const  REGISTER_SUCESS = 'sucess'
 export const  REGISTER_ERROR = 'register_error'
 export const LOADING_LOGIN = 'loading_login'
 export const LOADING_REGISTER = 'loading_register'
+
+//appActions
+export const CHANGE_CONTACT_EMAIL = 'change_contact_email'
+export const ADD_CONTACT = 'add_contact'
