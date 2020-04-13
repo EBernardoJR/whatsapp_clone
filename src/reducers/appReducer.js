@@ -1,10 +1,11 @@
 //types
-import { CHANGE_CONTACT_EMAIL } from '../actions/type'
+import { CHANGE_CONTACT_EMAIL, ADD_CONTACT_ERROR } from '../actions/type'
 
 
 
 const INITIAL_STATE = {
-    addAddressEmail: ''
+    addAddressEmail: '',
+    addContactError: ''    
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,6 +13,8 @@ export default (state = INITIAL_STATE, action) => {
         case CHANGE_CONTACT_EMAIL:
             return { ...state, addAddressEmail: action.payload }
 
+        case ADD_CONTACT_ERROR:
+            return { ...state, addContactError: action.payload }
         default:
             return state
     }

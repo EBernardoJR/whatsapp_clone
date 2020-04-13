@@ -11,3 +11,4 @@ export const LOADING_REGISTER = 'loading_register'
 //appActions
 export const CHANGE_CONTACT_EMAIL = 'change_contact_email'
 export const ADD_CONTACT = 'add_contact'
+export const ADD_CONTACT_ERROR = 'add_contact_error'

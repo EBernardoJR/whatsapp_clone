@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TextInput, Button } from 'react-native'
+import { View, TextInput, Button, Text } from 'react-native'
 //mapeamento do redux
 import { connect } from 'react-redux'
 import { changeAddContactEmail, addContact } from '../actions/appActions'
@@ -24,6 +24,10 @@ const AddContact = props => {
                title="Adicionar"
                color='#115e54'
                />
+
+               <Text style={{ color: '#ff0000', fontSize: 20, alignSelf: "center"}}>
+                    {props.addContactError}
+               </Text>
            
             </View>
         </View>
@@ -32,7 +36,8 @@ const AddContact = props => {
 
 const mapStateToProps = state => (
     {
-        addAddressEmail: state.appReducer.addAddressEmail
+        addAddressEmail: state.appReducer.addAddressEmail,
+        addContactError: state.appReducer.addContactError
     }
 )
 const actions = {

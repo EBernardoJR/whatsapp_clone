@@ -17,7 +17,7 @@ export default function Routes(){
                 <Scene key='login'  component={FormLogin} hideNavBar={true} />
                 <Scene key='register' component={FormCadastro} hideNavBar={false} title='Register'/>
                 <Scene key='welcome'  component={Welcome} hideNavBar={true} />
-                <Scene key='main'  component={Main}  hideNavBar={true} initial/>
+                <Scene key='main'  component={Main}  hideNavBar={true} />
                 <Scene key='addContact'  component={AddContact} hideNavBar={false} title="Adicionar Contato" />
             </Stack>
         </Router>
