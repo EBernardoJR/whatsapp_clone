@@ -6,9 +6,12 @@ import { changeAddContactEmail, addContact } from '../actions/appActions'
 
 
 const AddContact = props => {
-    return(
-        <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
-           <View style={{ flex: 1, justifyContent: 'center' }}>
+
+    function renderAddContact(){
+        if(!props.addContactSucess){//se for true
+            return(
+            <>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
             
                 <TextInput
                 placeholder="E-mail"
@@ -30,6 +33,21 @@ const AddContact = props => {
                </Text>
            
             </View>
+            </>
+            )
+        }else {
+            return(
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={{ fontSize: 20}}>Contato cadastrado com sucesso!</Text>
+                </View>
+            )
+        }
+    }
+
+
+    return(
+        <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
+        { renderAddContact() }
         </View>
     )
 }
@@ -37,7 +55,8 @@ const AddContact = props => {
 const mapStateToProps = state => (
     {
         addAddressEmail: state.appReducer.addAddressEmail,
-        addContactError: state.appReducer.addContactError
+        addContactError: state.appReducer.addContactError,
+        addContactSucess: state.appReducer.addContactSucess
     }
 )
 const actions = {

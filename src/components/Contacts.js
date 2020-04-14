@@ -1,11 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text } from 'react-native'
+import { connect } from 'react-redux'
+import { userContactsFetch } from '../actions/appActions'
 
+function Contacts(props){
 
-export default function Contacts(){
+    useEffect(()=>{
+        props.userContactsFetch()
+    }, [])
+
     return(
         <View>
-            <Text>Contacts</Text>
+            <Text>Contatos</Text>
         </View>
     )
 }
+
+const mapStateToProps = state => (
+    {
+
+    }
+)
+
+export default connect(null, { userContactsFetch })(Contacts)

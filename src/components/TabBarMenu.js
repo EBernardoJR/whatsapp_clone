@@ -3,7 +3,8 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import {  TabBar } from 'react-native-tab-view';
 import addImg from '../assets/add.png'
 import { Actions } from 'react-native-router-flux'
-
+import { connect } from 'react-redux'
+import { enableAddContact } from '../actions/appActions'
 
 
 const TabBarMenu = (props) => {
@@ -18,7 +19,10 @@ const TabBarMenu = (props) => {
 
 
                 <View style={{ flexDirection: 'row', marginRight: 20, marginTop: 15}}>
-                    <TouchableOpacity onPress={() => Actions.addContact()} style={{ marginRight: 40 }}>
+                    <TouchableOpacity onPress={() => {
+                        //habliltar o cadastro
+                        props.enableAddContact()
+                        Actions.addContact()}} style={{ marginRight: 40 }}>
                         <Image source={addImg} />
                     </TouchableOpacity>
 
@@ -34,4 +38,4 @@ const TabBarMenu = (props) => {
     )
 }
 
-export default TabBarMenu
+export default connect(null, { enableAddContact })(TabBarMenu)

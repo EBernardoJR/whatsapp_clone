@@ -1,4 +1,4 @@
-import { CHANGE_CONTACT_EMAIL, ADD_CONTACT, ADD_CONTACT_ERROR } from './type'
+import { CHANGE_CONTACT_EMAIL, ADD_CONTACT_SUCESS , ADD_CONTACT_ERROR, CONTACT_LIST_USER } from './type'
 import firebase from 'firebase'
 import b64 from 'base-64'
 //transformar objeto em array
@@ -41,7 +41,7 @@ export const addContact = email => {
                             email,
                             name: userData.name
                         }).then(()=> {
-                            alert('Contato Adicionado: ' + email)
+                           dispatch({ type: ADD_CONTACT_SUCESS, payload: true })
                         }).catch( erro => (
                             dispatch({//ao não encontrar o usuário vai disparar ess função retornando o erro como action
                                 type: ADD_CONTACT_ERROR,
@@ -60,5 +60,30 @@ export const addContact = email => {
                 }
             })
             
+    }
+}
+
+//mudar  contact sucess para false
+
+export const enableAddContact = () => (
+    {
+        type: ADD_CONTACT_SUCESS,
+        payload: false
+    }
+)
+
+//listar os contatos
+export const userContactsFetch = () => {
+    const { currentUser } = firebase.auth()
+
+    return (dispatch) => {
+        let userEmailb64 = b64.encode( currentUser.email )
+
+        firebase.database().ref(`/user_contacts/${userEmailb64}`)
+            .on('value', snapshot => {
+                //sempre q houver alteração vai disparada
+                console.log(snapshot.val())
+                dispatch({ type: CONTACT_LIST_USER, payload: snapshot.val() })
+            })
     }
 }
