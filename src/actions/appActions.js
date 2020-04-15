@@ -104,10 +104,51 @@ export const changeMessage = text => {
     )
 }
 
-export const sendMessage = () => {
-    return (
-        {
-            type: SEND_MESSAGE
-        }
-    )
+export const sendMessage = (message, nameContact, emailContact) => {
+    
+    const { currentUser } = firebase.auth()//usuario logado
+    const userLogEmail = currentUser.email
+ 
+    return dispatch => {
+
+        //convertando para o b64
+        const userLogEmailB64 = b64.encode(userLogEmail)
+        const emailContactB64 = b64.encode(emailContact)//email do usuário que será enviada a mensagem
+
+        //enviar para o path do usuário logado
+        firebase.database().ref(`/messages/${userLogEmailB64}/${emailContactB64}`)
+            .push({ message, type: 'e' })//tipo 'e' significa que a menasgem foi enviada
+            .then(()=> {
+                firebase.database().ref(`/messages/${emailContactB64}/${userLogEmailB64}`)
+                    .push({ message, type: 'r' })//enviando mensagem para p o usuário
+                    .then(()=> dispatch({
+                        type: SEND_MESSAGE
+                    }))
+            })//-----------------------------------------------------------------------------------
+            .then(() => {//armazenamento dos cabecalhos (ultima mensagem enviada do usuário autenticado)
+
+                firebase.database().ref(`/user_chats/${userLogEmailB64}/${emailContactB64}`)
+                    .set({ name: nameContact, email: emailContact })//se existe um registro igual vai sobrepor esse registro
+
+
+            })
+            .then(() => { //ultima mensagem enviada do usuário que a mensagem foi enviada
+
+                //pesquisando o nome do usuario logado na lista de contatos
+                firebase.database().ref(`/contacts/${userLogEmailB64}`)//vai retornar um objeto
+                    .once('value')
+                    .then( snapshot => {
+                        //vai precisar convertar para um array para pegar o nome pois não tem como saber a chave unica do documento
+                        const userData = _.first(_.values(snapshot.val()))//vai trazer um array(recuperando o primeiro indice)
+                        console.log(userData)
+
+
+                        firebase.database().ref(`/user_chats/${emailContactB64}/${userLogEmailB64}`)
+                            .set({ name: userData.name, email: userLogEmail})
+                    })
+
+            })
+
+        
+    }
 }

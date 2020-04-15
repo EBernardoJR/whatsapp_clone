@@ -20,9 +20,9 @@ function Contacts(props){
 
 
     function renderContacts(contact) {
-    
+         //sobrescrevendo o title da cena/page
         return(
-                    <TouchableOpacity onPress={() => Actions.chat()} style={{ flex: 1, padding: 20, borderBottomWidth: 1, color: '#ccc'}}>
+                    <TouchableOpacity onPress={() => Actions.chat({title: contact.item.name, nameContact: contact.item.name, contactEmail: contact.item.email })} style={{ flex: 1, padding: 20, borderBottomWidth: 1, color: '#ccc'}}>
                         <Text style={{ fontSize: 20 }}>{contact.item.name}</Text>
                         <Text style={{ fontSize: 18 }}>{contact.item.email}</Text>
                     </TouchableOpacity>
