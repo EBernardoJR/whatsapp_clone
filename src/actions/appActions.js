@@ -1,4 +1,11 @@
-import { CHANGE_CONTACT_EMAIL, ADD_CONTACT_SUCESS , ADD_CONTACT_ERROR, CONTACT_LIST_USER } from './type'
+import { CHANGE_CONTACT_EMAIL, 
+    ADD_CONTACT_SUCESS, 
+    CHANGE_MESSAGE , 
+    ADD_CONTACT_ERROR, 
+    CONTACT_LIST_USER,
+    SEND_MESSAGE
+
+ } from './type'
 import firebase from 'firebase'
 import b64 from 'base-64'
 //transformar objeto em array
@@ -86,4 +93,21 @@ export const userContactsFetch = () => {
                 dispatch({ type: CONTACT_LIST_USER, payload: snapshot.val() })
             })
     }
+}
+
+export const changeMessage = text => {
+    return(
+        {
+            type: CHANGE_MESSAGE,
+            payload: text
+        }
+    )
+}
+
+export const sendMessage = () => {
+    return (
+        {
+            type: SEND_MESSAGE
+        }
+    )
 }
