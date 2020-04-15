@@ -1,32 +1,40 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, TouchableOpacity, Text, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { userContactsFetch } from '../actions/appActions'
 import _ from 'lodash'
+import { Actions } from 'react-native-router-flux'
 
 function Contacts(props){
 
-    const [ _contacts, setContacts ] = useState([])
+  
 
     useEffect(()=>{
         props.userContactsFetch()//buscar os contatos para pôr no estado do redux
-        makeDataSource(props.contacts)
+    
     }, [])
 
+   
 
 
-    //fonte de dados para o listView
 
-    //criando a fonte de dados
-    function makeDataSource(contacts){
-        setContacts(contacts)
+
+    function renderContacts(contact) {
+    
+        return(
+                    <TouchableOpacity onPress={() => Actions.chat()} style={{ flex: 1, padding: 20, borderBottomWidth: 1, color: '#ccc'}}>
+                        <Text style={{ fontSize: 20 }}>{contact.item.name}</Text>
+                        <Text style={{ fontSize: 18 }}>{contact.item.email}</Text>
+                    </TouchableOpacity>
+        )
     }
+  
 
 
     return(
         <FlatList 
-        data={_contacts}
-        renderItem={({data}) => <View><Text>{data}</Text></View>}
+        data={props.contacts}
+        renderItem={data => renderContacts(data)}
         keyExtractor={item => item.uid}
         />
     )
@@ -40,8 +48,7 @@ const mapStateToProps = state => {
  
 
     return {
-        contacts,
-        addContactSucess: state.appReducer.addContactSucess //quando for adicionado um novo contato vai forçar a atualização
+        contacts
     }
 }
 

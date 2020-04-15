@@ -4,7 +4,7 @@ import FormLogin from './components/formLogin'
 import FormCadastro from './components/formCadastro'
 import Welcome from './components/Welcome'
 import Main from './components/Main'
-import formLogin from './components/formLogin'
+import Chat from './components/Chat'
 import AddContact from './components/AddContact'
 //necessario
 //npm install --save react-native-gesture-handler react-native-reanimated react-native-screens
@@ -19,6 +19,7 @@ export default function Routes(){
                 <Scene key='welcome'  component={Welcome} hideNavBar={true} />
                 <Scene key='main'  component={Main}  hideNavBar={true} />
                 <Scene key='addContact'  component={AddContact} hideNavBar={false} title="Adicionar Contato" />
+                <Scene key='chat'  component={Chat} hideNavBar={false} title="Chat" />
             </Stack>
         </Router>
     )
