@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import send from '../assets/send-button.png'
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, FlatList } from 'react-native';
 import { connect } from 'react-redux'
 import { changeMessage, sendMessage } from '../actions/appActions'
 // import { Container } from './styles';
+import { userChatFetch } from '../actions/appActions'
+import _ from 'lodash'
 
 
 
@@ -26,12 +28,55 @@ class Chat extends Component {
     }
   }
 
+  //usando componentWillMoun
+
+  componentWillMount(){
+    //o email do usuario foi enviado ao navegar para a tela
+    this.props.userChatFetch(this.props.contactEmail)
+  }
+
+  componentWillReceiveProps(nextProps){
+    //no momento em que o estado chat for atualizado
+    if(this.props.contactEmail != nextProps.contactEmail){
+      //atualizando o componente buscando a conversa com a nova propriedade
+      this.props.userChatFetch(nextProps.contactEmail)
+    }
+  }
+
+  //data é toda a conversa passada na propriedade data
+  renderChat(data){
+
+    if(data.item.type === 'e'){
+      //flex-end no final da linha
+    return(
+      <View style={{ alignItems: 'flex-end', marginTop: 5, marginBottom: 5, marginLeft: 40 }}>
+        <Text style={{ fontSize: 18, color: '#0000', padding: 10, backgroundColor: '#dbf5b4', elevation: 1 }}>{data.item.message}</Text>
+      </View>
+    )
+
+    }else {
+      return(
+        <View style={{ alignItems: 'flex-start', marginTop: 5, marginBottom: 5, marginRight: 40 }}>
+        <Text style={{ fontSize: 18, color: '#0000', padding: 10, backgroundColor: '#f7f7f7', elevation: 1 }}>{data.item.message}</Text>
+      </View>
+      )
+    }
+
+  }
+
+
   render() {
    
 
     return (
         <View style={{ flex: 1, backgroundColor: '#eee4dc', padding: 10 }}>
-            <View style={{ flex: 1, paddingBottom: 20 }}></View>
+            <View style={{ flex: 1, paddingBottom: 20 }}>
+                <FlatList 
+                data={this.props.chat}
+                renderItem={data => renderChat(data)}
+                keyExtractor={item => item.uid}
+                />
+            </View>
 
 
             <View style={{ flexDirection: 'row', height: 60, borderRadius: 4 }}>
@@ -58,8 +103,16 @@ class Chat extends Component {
 }
 //method
 mapStateToProps = state => {
+
+  const chat = _.map(state.chatListReducer, (val, uid) => {
+    return { ...val, uid }//transforma de objeto para array
+  })
+
+  console.log(chat)
+
   return(
   {
+    chat,
     message: state.appReducer.message
   }
   )
@@ -70,5 +123,6 @@ mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   changeMessage,
-  sendMessage
+  sendMessage,
+  userChatFetch
 })(Chat)
