@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import { changeMessage, sendMessage } from '../actions/appActions'
 // import { Container } from './styles';
 
+
+
 class Chat extends Component {
 
   sendMessageToAction(){
@@ -12,14 +14,14 @@ class Chat extends Component {
     if(this.props.message.length == 0 ){//não aceitar campos vazios
       
       return false
-      
+
     }else{
 
-    const { message, nameContact, contactEmail } = this.props
-    //message foi adcionado ao componente assim q ele foi montado, e evoluido no input 
-    //enviar as informações para a action sendMessage
-    this.props.sendMessage(message, nameContact, contactEmail)
-    this.props.changeMessage('')//apagando o campo
+      const { message, nameContact, contactEmail } = this.props
+      //message foi adcionado ao componente assim q ele foi montado, e evoluido no input 
+      //enviar as informações para a action sendMessage
+      this.props.sendMessage(message, nameContact, contactEmail)
+      this.props.changeMessage('')//apagando o campo
 
     }
   }
@@ -34,6 +36,8 @@ class Chat extends Component {
 
             <View style={{ flexDirection: 'row', height: 60, borderRadius: 4 }}>
                 <TextInput
+                autoCapitalize
+                autoCorrect
                 value={this.props.message} 
                 onChangeText={text => this.props.changeMessage(text)}
                 placeholder='Enviar mensagem' 
@@ -42,7 +46,7 @@ class Chat extends Component {
 
                 <View style={{ justifyContent: 'center'}}>
                   <TouchableOpacity onPress={() => this.sendMessageToAction()} style={{ backgroundColor: '#115e44', marginLeft: 4, borderRadius: 40, width: 50, height: 50, alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={send} style={{ height: 30, width: 32 }}/>
+                    <Image source={send} style={{ height: 30, width: 30 }}/>
                   </TouchableOpacity>
                 </View>
 

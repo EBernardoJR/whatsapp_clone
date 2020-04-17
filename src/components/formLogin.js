@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
-import { View, ActivityIndicator, Text, TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, ActivityIndicator, Text,StatusBar, TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { changeEmail, changePassword, authenticateUser } from '../actions/authAction'
 // import { Container } from './styles';
 import backgroundImg from '../assets/background.png'
@@ -38,6 +38,8 @@ const FormLogin =  props => {
     }
 
     return (
+    <>
+    <StatusBar backgroundColor='#115e44' barStyle="light-content"/>
     <ImageBackground source={backgroundImg} style={{ width: '100%', height: '100%' }}>
         <View style={{ flex: 1, padding: 10 }}>
             <View style={styles.header}>
@@ -78,6 +80,7 @@ const FormLogin =  props => {
             
         </View>
     </ImageBackground>
+    </>
     )
 }
 

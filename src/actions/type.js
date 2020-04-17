@@ -16,3 +16,5 @@ export const CONTACT_LIST_USER = 'contact_list_user'
 export const ADD_CONTACT_SUCESS = 'add_contact_sucess'
 export const CHANGE_MESSAGE = 'change_message'
 export const SEND_MESSAGE = 'send_message'
+
+export const CHAT_USER_LIST = 'chat_user_list'
