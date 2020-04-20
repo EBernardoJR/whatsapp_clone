@@ -45,19 +45,19 @@ class Chat extends Component {
 
   //data é toda a conversa passada na propriedade data
   renderChat(data){
-
+    console.log(data)
     if(data.item.type === 'e'){
       //flex-end no final da linha
     return(
       <View style={{ alignItems: 'flex-end', marginTop: 5, marginBottom: 5, marginLeft: 40 }}>
-        <Text style={{ fontSize: 18, color: '#0000', padding: 10, backgroundColor: '#dbf5b4', elevation: 1 }}>{data.item.message}</Text>
+        <Text style={{ fontSize: 18, padding: 10, backgroundColor: '#dbf5b4', elevation: 1, borderRadius: 5 }}>{data.item.message}</Text>
       </View>
     )
 
     }else {
       return(
-        <View style={{ alignItems: 'flex-start', marginTop: 5, marginBottom: 5, marginRight: 40 }}>
-        <Text style={{ fontSize: 18, color: '#0000', padding: 10, backgroundColor: '#f7f7f7', elevation: 1 }}>{data.item.message}</Text>
+        <View style={{ alignItems: 'flex-start', marginTop: 5, marginBottom: 5, marginRight: 40, borderRadius: 5 }}>
+        <Text style={{ fontSize: 18, padding: 10, backgroundColor: '#f7f7f7', elevation: 1, borderRadius: 5 }}>{data.item.message}</Text>
       </View>
       )
     }
@@ -73,7 +73,7 @@ class Chat extends Component {
             <View style={{ flex: 1, paddingBottom: 20 }}>
                 <FlatList 
                 data={this.props.chat}
-                renderItem={data => renderChat(data)}
+                renderItem={data => this.renderChat(data)}
                 keyExtractor={item => item.uid}
                 />
             </View>

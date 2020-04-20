@@ -166,7 +166,7 @@ export const userChatFetch = (emailContact) => {
     let emailContactB64 = b64.encode(emailContact)
 
     return dispatch => {
-        firebase.database.ref(`/messages/${emailUserAuthB64}/${emailContactB64}`)
+        firebase.database().ref(`/messages/${emailUserAuthB64}/${emailContactB64}`)
         .on('value', snapshot => {
             dispatch({ type: CHAT_USER_LIST, payload: snapshot.val() })
         })//ficar verificando
