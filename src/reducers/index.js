@@ -3,6 +3,7 @@ import authReducer from './authReducer'
 import appReducer from './appReducer'
 import contactListReducer from './contactListReducer'
 import chatListReducer from './chatListReducer'
+import chatsListReducer from './chatsListReducer'
 
 
 export default combineReducers({
@@ -10,5 +11,6 @@ export default combineReducers({
     authReducer,
     appReducer,
     contactListReducer,
-    chatListReducer
+    chatListReducer,
+    chatsListReducer
 })

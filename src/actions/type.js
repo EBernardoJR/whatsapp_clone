@@ -18,3 +18,5 @@ export const CHANGE_MESSAGE = 'change_message'
 export const SEND_MESSAGE = 'send_message'
 
 export const CHAT_USER_LIST = 'chat_user_list'
+
+export const USER_CHATS_LIST = 'user_chats_list'

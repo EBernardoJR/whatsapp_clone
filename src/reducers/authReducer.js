@@ -51,6 +51,11 @@ export default (state = INITIAL_STATE, action) => {
         case LOADING_REGISTER:
             return { ...state, loadingRegister: true }
 
+        //limpar o estado para quando retornar ao fzr o logout ele estiver vazio
+
+        case LOGIN_SUCESS: 
+            return { ...state, ...INITIAL_STATE}
+
         default:
             return state;
 

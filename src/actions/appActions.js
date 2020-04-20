@@ -4,7 +4,8 @@ import { CHANGE_CONTACT_EMAIL,
     ADD_CONTACT_ERROR, 
     CONTACT_LIST_USER,
     SEND_MESSAGE,
-    CHAT_USER_LIST
+    CHAT_USER_LIST,
+    USER_CHATS_LIST
 
  } from './type'
 import firebase from 'firebase'
@@ -170,5 +171,22 @@ export const userChatFetch = (emailContact) => {
         .on('value', snapshot => {
             dispatch({ type: CHAT_USER_LIST, payload: snapshot.val() })
         })//ficar verificando
+    }
+}
+
+export const userChatsFetch = ()=> {
+
+    const { currentUser } = firebase.auth()
+
+    return dispatch => {
+        let userLogEmailB64 = b64.encode(currentUser.email)//usuário logado
+
+        firebase.database().ref(`/user_chats/${userLogEmailB64}`)
+            .on('value', snapshot => {
+                dispatch({
+                    type: USER_CHATS_LIST,
+                    payload: snapshot.val()
+                })
+            })
     }
 }

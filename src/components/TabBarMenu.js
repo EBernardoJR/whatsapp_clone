@@ -5,6 +5,7 @@ import addImg from '../assets/add.png'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { enableAddContact } from '../actions/appActions'
+import firebase from 'firebase'
 
 
 const TabBarMenu = (props) => {
@@ -27,7 +28,9 @@ const TabBarMenu = (props) => {
                     </TouchableOpacity>
 
                     <View>
+                        <TouchableOpacity onPress={() => firebase.auth().signOut().then(() => Actions.login())}>
                         <Text style={{ color: '#fff', fontSize: 15}}>Sair</Text>
+                        </TouchableOpacity>
                     </View>
 
                 </View>

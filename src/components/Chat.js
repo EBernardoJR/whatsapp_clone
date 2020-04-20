@@ -75,6 +75,7 @@ class Chat extends Component {
                 data={this.props.chat}
                 renderItem={data => this.renderChat(data)}
                 keyExtractor={item => item.uid}
+
                 />
             </View>
 
@@ -107,8 +108,6 @@ mapStateToProps = state => {
   const chat = _.map(state.chatListReducer, (val, uid) => {
     return { ...val, uid }//transforma de objeto para array
   })
-
-  console.log(chat)
 
   return(
   {
